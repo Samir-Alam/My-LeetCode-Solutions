@@ -1,3 +1,5 @@
+//-----First Solution-------
+
 class Solution {
     public int[] movesToStamp(String stamp, String target) {
         char[] S = stamp.toCharArray();
@@ -14,43 +16,36 @@ class Solution {
                     doneReplace = true;
                     visited[i] = true;
                     res.add(i);
-                    if (stars == T.length) {
+                    if (stars == T.length)
                         break;
-                    }
                 }
             }
-            
-            if (!doneReplace) {
+            if (!doneReplace)
                 return new int[0];
-            }
         }
-        
         int[] resArray = new int[res.size()];
-        for (int i = 0; i < res.size(); i++) {
+        for (int i = 0; i < res.size(); i++)
             resArray[i] = res.get(res.size() - i - 1);
-        }
         return resArray;
     }
-    
     private boolean canReplace(char[] T, int p, char[] S) {
-        for (int i = 0; i < S.length; i++) {
-            if (T[i + p] != '*' && T[i + p] != S[i]) {
+        for (int i = 0; i < S.length; i++)
+            if (T[i + p] != '*' && T[i + p] != S[i])
                 return false;
-            }
-        }
         return true;
     }
-    
     private int doReplace(char[] T, int p, int len, int count) {
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i < len; i++)
             if (T[i + p] != '*') {
                 T[i + p] = '*';
                 count++;
             }
-        }
         return count;
     }
 }
+
+
+//-----Second Solution-------
 
 // class Solution {
 //     public int[] movesToStamp(String stamp, String target) {
