@@ -1,8 +1,8 @@
 class Solution {
     public boolean isPowerOfFour(int n) {
-        if(n == 1)  return true;
-        if(((n%2 == 1) || (n == 0)) && n != 1)
-            return false;
+        // if(n == 1)  return true;
+        // if(((n%2 == 1) || (n == 0)) && n != 1)
+        //     return false;
         // int ans = 4;
         // for(int i = 1; i < n; i++){
         //     ans = (int)Math.pow(4, i);
@@ -12,7 +12,11 @@ class Solution {
         //         break;
         // }
         // return ans == n;
-        return CountTrailingZeros(n);
+        // return CountTrailingZeros(n);
+        
+        if(n<=0) return false;
+        if((n&(n-1))!=0) return false;
+        return (n-1)%3==0;
     }
     static boolean CountTrailingZeros(int n)
     {
