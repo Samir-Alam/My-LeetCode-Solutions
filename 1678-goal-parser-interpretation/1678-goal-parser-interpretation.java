@@ -1,20 +1,20 @@
 class Solution {
     public String interpret(String command) {
-        String ans = "";
-        int n = command.length();
-        for(int i = 0; i < n; i++){
-            if(command.charAt(i) == 'G')
-                ans += Character.toString('G');
-            else if(command.charAt(i) == '('){
-                if(i < n && command.charAt(i + 1) == ')'){
-                    ans += Character.toString('o');
+        StringBuilder S = new StringBuilder(command.length());
+        for(int i = 0 ; i < command.length() ; i++){
+            if(command.charAt(i) == 'G') 
+                S.append('G');
+            if(command.charAt(i) == '('){
+                if(command.charAt(i + 1) == ')') {
+                    S.append('o'); 
                     i++;
-                }else if(i < n && command.charAt(i + 1) == 'a'){
-                    i += 3;
-                    ans += "al";
+                }
+                else{
+                    S.append("al"); 
+                    i = i + 3;
                 }
             }
         }
-        return ans;
+        return S.toString();
     }
 }
