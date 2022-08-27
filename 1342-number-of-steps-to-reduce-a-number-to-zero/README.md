@@ -1,4 +1,6 @@
-<h2><a href="https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/">1342. Number of Steps to Reduce a Number to Zero</a></h2><h3>Easy</h3><hr><div><p>Given an integer <code>num</code>, return <em>the number of steps to reduce it to zero</em>.</p>
+<h2><a href="https://leetcode.com/problems/number-of-steps-to-reduce-a-number-to-zero/">1342. Number of Steps to Reduce a Number to Zero(Scroll Down for Explanation)</a></h2><h3>Easy</h3><hr><div>
+
+<p>Given an integer <code>num</code>, return <em>the number of steps to reduce it to zero</em>.</p>
 
 <p>In one step, if the current number is even, you have to divide it by <code>2</code>, otherwise, you have to subtract <code>1</code> from it.</p>
 
@@ -40,3 +42,14 @@ Step 4) 1 is odd; subtract 1 and obtain 0.
 	<li><code>0 &lt;= num &lt;= 10<sup>6</sup></code></li>
 </ul>
 </div>
+
+# Explanation of the Solution
+<hr>
+
+For the binary representation from right to left(until we find the leftmost 1):
+
+if we meet 0, result += 1 because we are doing divide;
+
+if we meet 1, result += 2 because we first do "-1" then do a divide;
+
+ony exception is the leftmost 1, we just do a "-1" and it becomse 0 already.
