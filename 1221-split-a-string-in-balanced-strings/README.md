@@ -39,3 +39,21 @@ Note that s cannot be split into "RL", "RR", "RL", "LR", "LL", because the 2<sup
 	<li><code>s</code> is a <strong>balanced</strong> string.</li>
 </ul>
 </div>
+
+<hr>
+
+# Code Explanation 👇
+
+<hr>
+
+> ### The BalanceCount will count the number of R's and L's
+
+> ### When the character is R, it'll increament otherwise decreament
+
+> ### And if BalanceCount becomes 0, that means there is equal number of R's and L's
+
+> ### Therefore, increament the counter
+
+> ### Treverse through every character
+
+> ### Return the counter
