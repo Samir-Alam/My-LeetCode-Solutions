@@ -28,3 +28,14 @@
 	<li>All values of <code>indices</code> are <strong>unique</strong>.</li>
 </ul>
 </div>
+
+<hr>
+
+# Code Explanation
+
+<hr>
+
+* Just create a character array
+* Place the string character to the given indices
+* Now append (insert / add) every character to a new String
+* Return the new string ✨✨✨
