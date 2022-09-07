@@ -15,13 +15,20 @@
  */
 class Solution {
     public String tree2str(TreeNode t) {
-        if (t == null) return "";
-        String result = t.val + "";
-        String left = tree2str(t.left);
-        String right = tree2str(t.right);
-        if (left == "" && right == "") return result;
-        if (left == "") return result + "()" + "(" + right + ")";
-        if (right == "") return result + "(" + left + ")";
-        return result + "(" + left + ")" + "(" + right + ")";
+        // if (t == null) return "";
+        // String result = t.val + "";
+        // String left = tree2str(t.left);
+        // String right = tree2str(t.right);
+        // if (left == "" && right == "") return result;
+        // if (left == "") return result + "()" + "(" + right + ")";
+        // if (right == "") return result + "(" + left + ")";
+        // return result + "(" + left + ")" + "(" + right + ")";
+        if(t==null)
+            return "";
+        if(t.left==null && t.right==null)
+            return t.val+"";
+        if(t.right==null)
+            return t.val+"("+tree2str(t.left)+")";
+        return t.val+"("+tree2str(t.left)+")("+tree2str(t.right)+")"; 
     }
 }
