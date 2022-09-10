@@ -14,8 +14,13 @@
  * }
  */
 class Solution {
+    int pre = 0;
     public TreeNode bstToGst(TreeNode root) {
-        reversedInorder(root, new TreeNode(0));
+        // reversedInorder(root, new TreeNode(0));
+        if (root.right != null) bstToGst(root.right);
+        pre = root.val = pre + root.val;
+        if (root.left != null) bstToGst(root.left);
+
         return root;
     }
     private void reversedInorder(TreeNode node, TreeNode sum) {
