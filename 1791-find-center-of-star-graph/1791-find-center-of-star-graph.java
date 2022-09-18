@@ -3,9 +3,12 @@ class Solution {
         
         //every edges has to connect to the center node,
         //so you just need to find the common node which is connected to every node
-        if(edges[0][0] == edges[1][0] || edges[0][0] == edges[1][1])
-            return edges[0][0];
-        else
-            return edges[0][1];
+        // if(edges[0][0] == edges[1][0] || edges[0][0] == edges[1][1])
+        //     return edges[0][0];
+        // else
+        //     return edges[0][1];
+        
+        //above code can be written as
+        return edges[0][0] == edges[1][0] || edges[0][0] == edges[1][1] ? edges[0][0] : edges[0][1];
     }
 }
