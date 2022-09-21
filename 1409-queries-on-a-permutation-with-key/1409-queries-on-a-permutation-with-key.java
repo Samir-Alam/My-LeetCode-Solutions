@@ -21,9 +21,8 @@ class Solution {
         for (int i = 0; i < queries.length; i++) {
             int q = queries[i];
             int idx = P.indexOf(q);
-            int val = q;
             P.remove(idx);
-            P.addFirst(val);
+            P.addFirst(q);
             res[i] = idx;
         }
         return res;
