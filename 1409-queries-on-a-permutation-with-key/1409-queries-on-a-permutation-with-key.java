@@ -15,13 +15,13 @@ class Solution {
         // return final_arr;
         
         LinkedList<Integer> P = new LinkedList<>();
-        for (int i=1; i<=m;i++)
+        for (int i = 1; i <= m; i++)
             P.add(i);
         int[] res = new int[queries.length];
-        for (int i=0; i<queries.length; i++) {
+        for (int i = 0; i < queries.length; i++) {
             int q = queries[i];
             int idx = P.indexOf(q);
-            int val = P.get(idx);
+            int val = q;
             P.remove(idx);
             P.addFirst(val);
             res[i] = idx;
