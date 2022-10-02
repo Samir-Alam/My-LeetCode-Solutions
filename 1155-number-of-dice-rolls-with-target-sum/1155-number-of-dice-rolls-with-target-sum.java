@@ -19,21 +19,24 @@ class Solution {
     //     return prev[t];
     // }
     
-    private int mod = (int) Math.pow(10, 9) + 7;
+    private int mod = (int)Math.pow(10, 9) + 7;
     public int numRollsToTarget(int n, int k, int target) {
-        Integer dp[][] = new Integer[n+1][target+1];
+        Integer dp[][] = new Integer[n + 1][target + 1];
         return recursiveCount(n, k, target, dp);
     }
     public int recursiveCount(int dice, int faces, int target, Integer[][] dp) {  
-        if(dice == 0 && target == 0) return 1;
-        if(target < 0) return 0;
-        if(dice == 0 && target != 0) return 0;
-        if(dp[dice][target] != null) return dp[dice][target]; //checking if answer already calculated return it
+        if(dice == 0 && target == 0) 
+            return 1;
+        if(target < 0) 
+            return 0;
+        if(dice == 0 && target != 0) 
+            return 0;
+        if(dp[dice][target] != null) 
+            return dp[dice][target];
         int count = 0;
-     //recursive calls with each face
-        for(int face=1; face<=faces; face++) {
-            count += recursiveCount(dice - 1, faces, target - face, dp); //recursive call with one less dice and target decresed by face on current dice
-            count %= mod; //requirement in question
+        for(int face = 1; face <= faces; face++) {
+            count += recursiveCount(dice - 1, faces, target - face, dp);
+            count %= mod;
         }   
         return dp[dice][target] = count;
     }
