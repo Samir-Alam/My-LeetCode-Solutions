@@ -13,8 +13,8 @@ class Solution {
             int high = queries[i][1];
             long val = 1;
             for(int j = lo; j <= high; j++){
-                val = val * powers.get(j);
-                val = val % mod;
+                val *= powers.get(j);
+                val %= mod;
             }
             res[i] = (int)val;
         }
