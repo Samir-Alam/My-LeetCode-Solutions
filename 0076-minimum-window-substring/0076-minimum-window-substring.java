@@ -1,44 +1,38 @@
 class Solution {
     public String minWindow(String s, String t) {
-        if (s.length() == 0 || t.length() == 0)
-            return "";
-        Map<Character, Integer> dictT = new HashMap<Character, Integer>();
-        for (int i = 0; i < t.length(); i++) {
-            int count = dictT.getOrDefault(t.charAt(i), 0);
-            dictT.put(t.charAt(i), count + 1);
+        String result = "";
+        if(s.length() < t.length())
+            return result;
+        int minWindow = Integer.MAX_VALUE;
+        int need = t.length();
+        int have = 0;
+        Map<Character, Integer> sMap = new HashMap();
+        Map<Character, Integer> tMap = new HashMap();
+        for(int i=0; i<t.length(); i++){
+            char ch = t.charAt(i);
+            tMap.put(ch, tMap.getOrDefault(ch,0)+1);
         }
-        int required = dictT.size();
-        List<Pair<Integer, Character>> filteredS = new ArrayList<Pair<Integer, Character>>();
-        for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            if (dictT.containsKey(c))
-                filteredS.add(new Pair<Integer, Character>(i, c));
-        }
-        int l = 0, r = 0, formed = 0;
-        Map<Character, Integer> windowCounts = new HashMap<Character, Integer>();
-        int[] ans = { -1, 0, 0 };
-        while (r < filteredS.size()) {
-            char c = filteredS.get(r).getValue();
-            int count = windowCounts.getOrDefault(c, 0);
-            windowCounts.put(c, count + 1);
-            if (dictT.containsKey(c) && windowCounts.get(c).intValue() == dictT.get(c).intValue()) 
-                formed++;
-            while (l <= r && formed == required) {
-                c = filteredS.get(l).getValue();
-                int end = filteredS.get(r).getKey();
-                int start = filteredS.get(l).getKey();
-                if (ans[0] == -1 || end - start + 1 < ans[0]) {
-                    ans[0] = end - start + 1;
-                    ans[1] = start;
-                    ans[2] = end;
+        int windowStart = 0;
+        for(int windowEnd = 0; windowEnd<s.length(); windowEnd++){
+            char ch = s.charAt(windowEnd);
+            sMap.put(ch, sMap.getOrDefault(ch,0)+1);
+            if(tMap.containsKey(ch) && sMap.get(ch)<=(tMap.get(ch)))
+                have++;
+            while(have==need){
+                if(minWindow > windowEnd-windowStart+1){
+                    minWindow = windowEnd-windowStart+1;
+                    result = s.substring(windowStart, windowEnd+1);
                 }
-                windowCounts.put(c, windowCounts.get(c) - 1);
-                if (dictT.containsKey(c) && windowCounts.get(c).intValue() < dictT.get(c).intValue())
-                    formed--;
-                l++;
+                char charToRemove = s.charAt(windowStart);
+                if(sMap.get(charToRemove) == 1)
+                    sMap.remove(charToRemove);
+                else
+                    sMap.put(charToRemove, sMap.get(charToRemove)-1);
+                windowStart++;
+                if(tMap.containsKey(charToRemove) && sMap.getOrDefault(charToRemove,0)<(tMap.get(charToRemove)))
+                    have--;
             }
-            r++;
         }
-        return ans[0] == -1 ? "" : s.substring(ans[1], ans[2] + 1);
+        return result;
     }
 }
