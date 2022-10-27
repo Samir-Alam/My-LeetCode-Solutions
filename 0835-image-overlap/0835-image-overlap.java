@@ -19,18 +19,15 @@ class Solution {
 
         //2nd Solution
         
-        int R1 = img1.length;
-        int R2 = img2.length;
-        int C1 = img1[0].length;
-        int C2 = img2[0].length;
+        int n = img1.length;
         int max = Integer.MIN_VALUE;	
 		//Slide one image on other image.
-        for(int r = 0; r < R1 + R2 - 1; r++){
-            int i = R1 - 1 + Math.min(0, R2 - 1 - r);
-            int x = r + Math.min(0, R2 - 1 - r);
-            for(int c = 0; c < C1 + C2 - 1;  c++){
-                int j = C1 - 1 + Math.min(0 ,  C2 - 1 - c);
-                int y = c + Math.min(0, C2 - 1 - c);
+        for(int r = 0; r < 2 * n - 1; r++){
+            int i = n - 1 + Math.min(0, n - 1 - r);
+            int x = r + Math.min(0, n - 1 - r);
+            for(int c = 0; c < 2 * n - 1;  c++){
+                int j = n - 1 + Math.min(0 ,  n - 1 - c);
+                int y = c + Math.min(0, n - 1 - c);
                 max = Math.max(max, overlap(img1, img2, i, j, x, y));
             }
         }
