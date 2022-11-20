@@ -16,58 +16,44 @@
 class Solution {
     TreeMap<Integer, Integer> map = new TreeMap<>();
     public List<List<Integer>> closestNodes(TreeNode root, List<Integer> queries) {
-        TreeSet<Integer> set = new TreeSet<>();
+        // TreeSet<Integer> set = new TreeSet<>();
+        // inOrder(root,set);
+        // List<List<Integer>> result = new ArrayList<>(queries.size());
+        // for(int i = 0; i < queries.size(); i++){
+        //     result.add(new ArrayList<>());
+        //     int largest = -1;
+        //     if(set.floor(queries.get(i)) != null)
+        //         largest = set.floor(queries.get(i));
+        //     int smallest = -1;
+        //     if(set.ceiling(queries.get(i)) != null)
+        //         smallest = set.ceiling(queries.get(i));
+        //     result.get(result.size() - 1).add(largest);
+        //     result.get(result.size() - 1).add(smallest);
+        // }
+        // return result;
         
-        // perform any tree traversal 
-        inOrder(root,set);
-        
-        // create a result array
-        List<List<Integer>> result = new ArrayList<>(queries.size());
-        
-        // go through each query
-        for(int i=0;i<queries.size();i++){
-            
-            result.add(new ArrayList<>());
-            int largest = -1;
-            
-            if(set.floor(queries.get(i))!=null){
-                largest = set.floor(queries.get(i));
-            }
-            
-            int smallest = -1;
-            if(set.ceiling(queries.get(i))!=null){
-                smallest = set.ceiling(queries.get(i));
-            }
-            
-            result.get(result.size()-1).add(largest);
-            result.get(result.size()-1).add(smallest);
+        List<List<Integer>> ans = new ArrayList<>();
+        helper(root);
+        for (int num : queries) {
+            Integer low = map.containsKey(num) ? Integer.valueOf(num) : map.lowerKey(num);
+            Integer high = map.containsKey(num) ? Integer.valueOf(num) : map.higherKey(num);
+            ans.add(Arrays.asList(low == null ? -1 : low, high == null ? -1 : high));
         }
-        return result;
-
+        return ans;
     }
-
+    void helper(TreeNode root) {
+        if (root == null) return;
+        
+        helper(root.left);
+        map.put(root.val, 0);
+        helper(root.right);
+    }
     private void inOrder(TreeNode root, TreeSet set){
-        if(root==null){
+        if(root == null)
             return;
-        }
         inOrder(root.left, set);
         set.add(root.val);
         inOrder(root.right, set);
         return;
     }
-    //     List<List<Integer>> ans = new ArrayList<>();
-    //     helper(root);
-    //     for (int num : queries) {
-    //         Integer low = map.containsKey(num) ? Integer.valueOf(num) : map.lowerKey(num);
-    //         Integer high = map.containsKey(num) ? Integer.valueOf(num) : map.higherKey(num);
-    //         ans.add(Arrays.asList(low == null ? -1 : low, high == null ? -1 : high));
-    //     }
-    //     return ans;
-    // }
-    // void helper(TreeNode root) {
-    //     if (root == null) return;
-    //     map.put(root.val, 0);
-    //     helper(root.left);
-    //     helper(root.right);
-    // }
 }
