@@ -19,9 +19,8 @@ class Solution {
             if (colors[adjacentNode] == null) {
                 if (!dfs(graph, colors, adjacentNode, currColor * -1)) 
                     return false;
-            } else if (colors[adjacentNode] == currColor) {
+            } else if (colors[adjacentNode] == currColor) 
                 return false;                                     
-            }
         }
         return true;        
     }
