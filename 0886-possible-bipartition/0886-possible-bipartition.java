@@ -7,10 +7,9 @@ class Solution {
             graph[dislike[1]].add(dislike[0]);
         }
         Integer[] colors = new Integer[N + 1];
-        for (int i = 1; i <= N; ++i) {
+        for (int i = 1; i <= N; ++i)
             if (colors[i] == null && !dfs(graph, colors, i, 1)) 
                 return false;
-        }
         return true;   
     }
     private boolean dfs(List<Integer>[] graph, Integer[] colors, int currNode, int currColor) {
