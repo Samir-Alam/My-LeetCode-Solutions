@@ -1,10 +1,11 @@
 class Solution {
-    int res = 0, empty = 1, sx, sy, ex, ey;
+    int res = 0, empty = 1, sx, sy;
     public int uniquePathsIII(int[][] grid) {
         int m = grid.length, n = grid[0].length;
         for (int i = 0; i < m; ++i) {
             for (int j = 0; j < n; ++j) {
-                if (grid[i][j] == 0) empty++;
+                if (grid[i][j] == 0) 
+                    empty++;
                 else if (grid[i][j] == 1) {
                     sx = i;
                     sy = j;
@@ -18,7 +19,8 @@ class Solution {
         if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length || grid[x][y] < 0)
             return;
         if (grid[x][y] == 2) {
-            if (empty == 0) res++;
+            if (empty == 0) 
+                res++;
             return;
         }
         grid[x][y] = -2;
