@@ -33,48 +33,65 @@ class Solution {
         
         int maxPoints = 0;
 
-    for (int i = 0; i < points.length; i++) {
-        // Map to store the slope between point i and other points
-        HashMap<String, Integer> slopeCount = new HashMap<>();
+//         for (int i = 0; i < points.length; i++) {
+//             // Map to store the slope between point i and other points
+//             HashMap<String, Integer> slopeCount = new HashMap<>();
 
-        // Count the number of points that have the same coordinates as point i
-        int samePointCount = 1;
-        int verticalCount = 0;
+//             // Count the number of points that have the same coordinates as point i
+//             int samePointCount = 1;
+//             int verticalCount = 0;
 
-        for (int j = i + 1; j < points.length; j++) {
-            // Calculate the slope between point i and point j
-            int dx = points[i][0] - points[j][0];
-            int dy = points[i][1] - points[j][1];
+//             for (int j = i + 1; j < points.length; j++) {
+//                 // Calculate the slope between point i and point j
+//                 int dx = points[i][0] - points[j][0];
+//                 int dy = points[i][1] - points[j][1];
 
-            // If the points have the same coordinates, increase the samePointCount
-            if (dx == 0 && dy == 0) {
-                samePointCount++;
-                continue;
-            }
+//                 // If the points have the same coordinates, increase the samePointCount
+//                 if (dx == 0 && dy == 0) {
+//                     samePointCount++;
+//                     continue;
+//                 }
 
-            // If the points have the same x-coordinate, they are vertical to each other
-            if (dx == 0) {
-                verticalCount++;
-                continue;
-            }
+//                 // If the points have the same x-coordinate, they are vertical to each other
+//                 if (dx == 0) {
+//                     verticalCount++;
+//                     continue;
+//                 }
 
-            // Calculate the slope as a fraction in reduced form
-            int gcd = gcd(dx, dy);
-            String slope = (dy / gcd) + "/" + (dx / gcd);
+//                 // Calculate the slope as a fraction in reduced form
+//                 int gcd = gcd(dx, dy);
+//                 String slope = (dy / gcd) + "/" + (dx / gcd);
 
-            // Increase the count for this slope
-            slopeCount.put(slope, slopeCount.getOrDefault(slope, 0) + 1);
+//                 // Increase the count for this slope
+//                 slopeCount.put(slope, slopeCount.getOrDefault(slope, 0) + 1);
+//             }
+
+//             // Update the maxPoints by taking the maximum of the samePointCount, the count for each slope, and the verticalCount
+//             maxPoints = Math.max(maxPoints, samePointCount);
+//             for (int count : slopeCount.values()) {
+//                 maxPoints = Math.max(maxPoints, count + samePointCount);
+//             }
+//             maxPoints = Math.max(maxPoints, verticalCount + samePointCount);
+//         }
+
+//         return maxPoints;
+        
+        int n = points.length;
+        if (n == 1) {
+            return 1;
         }
-
-        // Update the maxPoints by taking the maximum of the samePointCount, the count for each slope, and the verticalCount
-        maxPoints = Math.max(maxPoints, samePointCount);
-        for (int count : slopeCount.values()) {
-            maxPoints = Math.max(maxPoints, count + samePointCount);
+        int result = 2;
+        for (int i = 0; i < n; i++) {
+            Map<Double, Integer> cnt = new HashMap<>();
+            for (int j = 0; j < n; j++) {
+                if (j != i) {
+                    cnt.merge(Math.atan2(points[j][1] - points[i][1],
+                    	points[j][0] - points[i][0]), 1, Integer::sum);
+                }
+            }
+            result = Math.max(result, Collections.max(cnt.values()) + 1);
         }
-        maxPoints = Math.max(maxPoints, verticalCount + samePointCount);
-    }
-
-    return maxPoints;
+        return result;
 
     }
     // Method to calculate the greatest common divisor of two integers
