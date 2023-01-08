@@ -20,17 +20,22 @@ class Solution {
         // }
         // return rsum == lsum ? l : -1;
         
-        int sum = n * (n + 1) / 2;
-        int lo = 1, hi = n + 1;
-        while (lo < hi) {
-            int mid = lo + (hi - lo) / 2;
-            int leftSum = (mid - 1) * mid / 2;
-            int rightSum = sum - (mid + 1) * mid / 2;
-            if (leftSum < rightSum)
-                lo = mid + 1;
-            else
-                hi = mid;
-        }
-        return (lo - 1) * lo / 2 == sum - lo * (lo + 1) / 2 ? lo : -1;
+        // int sum = n * (n + 1) / 2;
+        // int lo = 1, hi = n + 1;
+        // while (lo < hi) {
+        //     int mid = lo + (hi - lo) / 2;
+        //     int leftSum = (mid - 1) * mid / 2;
+        //     int rightSum = sum - (mid + 1) * mid / 2;
+        //     if (leftSum < rightSum)
+        //         lo = mid + 1;
+        //     else
+        //         hi = mid;
+        // }
+        // return (lo - 1) * lo / 2 == sum - lo * (lo + 1) / 2 ? lo : -1;
+        
+        int ans = (n * n + n ) /2;
+        int sq = (int)Math.sqrt(ans);
+        if(sq * sq == ans)return sq;
+        else return -1;
     }
 }
