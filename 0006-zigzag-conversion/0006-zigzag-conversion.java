@@ -10,8 +10,8 @@ class Solution {
             while(index < n){
                 str.append(s.charAt(index));
                 if(i != 0 && i != numRows - 1){
-                    int k1 = k - (2 * i);
-                    int k2 = index + k1;
+                    // int k1 = k - (2 * i);
+                    int k2 = index + k - (2 * i);
                     if(k2 < n)
                         str.append(s.charAt(k2));
                 }
