@@ -1,15 +1,4 @@
 class Solution {
-    Boolean feasible(int[] weights, int c, int days) {
-        int daysNeeded = 1, currentLoad = 0;
-        for (int weight : weights) {
-            currentLoad += weight;
-            if (currentLoad > c) {
-                daysNeeded++;
-                currentLoad = weight;
-            }
-        }
-        return daysNeeded <= days;
-    }
     public int shipWithinDays(int[] weights, int days) {
         int totalLoad = 0, maxLoad = 0;
         for (int weight : weights) {
@@ -25,5 +14,16 @@ class Solution {
                 l = mid + 1;
         }
         return l;
+    }
+    Boolean feasible(int[] weights, int c, int days) {
+        int daysNeeded = 1, currentLoad = 0;
+        for (int weight : weights) {
+            currentLoad += weight;
+            if (currentLoad > c) {
+                daysNeeded++;
+                currentLoad = weight;
+            }
+        }
+        return daysNeeded <= days;
     }
 }
