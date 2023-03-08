@@ -8,7 +8,7 @@ class Solution {
             if(time > h)
                 return false;
         }
-        if(h < time)return false;
+        // if(h < time)return false;
         return true;
     }
     public int minEatingSpeed(int[] piles, int h) {
