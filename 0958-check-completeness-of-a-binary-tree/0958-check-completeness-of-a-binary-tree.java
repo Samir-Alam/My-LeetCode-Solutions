@@ -15,21 +15,19 @@
  */
 class Solution {
     public boolean isCompleteTree(TreeNode root) {
-        if(root == null){
+        if(root == null)
             return true;
-        }
         boolean check = false;
         Queue<TreeNode> q = new LinkedList<>();
         q.offer(root);
         while(!q.isEmpty()){
             TreeNode curr = q.poll();
-            if(curr == null){
+            if(curr == null)
                 check = true;
-            }
             else{
-                if(check){
+                if(check)
                     return false;
-                }else{
+                else{
                     q.offer(curr.left);
                     q.offer(curr.right);
                 }
