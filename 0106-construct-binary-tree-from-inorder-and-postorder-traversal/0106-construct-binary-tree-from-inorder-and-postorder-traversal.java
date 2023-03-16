@@ -15,11 +15,9 @@
  */
 class Solution {
     public TreeNode buildTree(int[] inorder, int[] postorder) {
-        return buildTree(inorder, inorder.length-1, 0, postorder, postorder.length-1);
+        return buildTree(inorder, inorder.length - 1, 0, postorder, postorder.length - 1);
     }
-
-    private TreeNode buildTree(int[] inorder, int inStart, int inEnd, int[] postorder,
-            int postStart) {
+    private TreeNode buildTree(int[] inorder, int inStart, int inEnd, int[] postorder, int postStart) {
         if (postStart < 0 || inStart < inEnd)
             return null;
             TreeNode root = new TreeNode(postorder[postStart]);
