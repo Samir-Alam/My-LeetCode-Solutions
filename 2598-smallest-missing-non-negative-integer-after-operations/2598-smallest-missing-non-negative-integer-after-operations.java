@@ -9,13 +9,11 @@ class Solution {
         }
         for (int i = 0; i < n; i++) {
             int check = i % value;
-            if (!map.containsKey(check)) {
+            if (!map.containsKey(check))
                 return i;
-            }
             int freq = map.get(check);
-            if (freq <= 0) {
+            if (freq <= 0)
                 return i;
-            }
             map.put(check, freq - 1);
         }
         return n;
