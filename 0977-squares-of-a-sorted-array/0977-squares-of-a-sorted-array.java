@@ -5,10 +5,10 @@ class Solution {
         int i = nums.length - 1;
         while (left <= right) {
             if (Math.abs(nums[left]) > Math.abs(nums[right])) {
-                ans[i--] = (int)Math.pow(nums[left], 2);
+                ans[i--] = nums[left] * nums[left];
                 left++;
             } else {
-                ans[i--] = (int)Math.pow(nums[right], 2);
+                ans[i--] = nums[right] * nums[right];
                 right--;
             }
         }
