@@ -1,39 +1,36 @@
 class Solution {
-    int MOD = 1_000_000_000 + 7;
-
-    int[] group, profit;
-    int minProfit, totalCrimes;
-
-    Integer[][][] cache;
-    public int profitableSchemes(int n, int minProfit, int[] group, int[] profit) {
-      this.group = group; this.profit = profit;
-      this.minProfit = minProfit; this.totalCrimes = profit.length;
-
-      // Create cache and solve recursively.
-      this.cache = new Integer[n + 1][minProfit + 1][totalCrimes];
-      return countProfitableSchemes(n, 0, 0);
+    int mod = 1000000007;
+    int[][][] memo = new int[101][101][101];
+    
+    int find(int pos, int count, int profit, int n, int minProfit, int[] group, int[] profits) {
+        if (pos == group.length) {
+            // If profit exceeds the minimum required; it's a profitable scheme.
+            return profit >= minProfit ? 1 : 0;
+        }
+        
+        if (memo[pos][count][profit] != -1) {
+            // Repeated subproblem, return the stored answer.
+            return memo[pos][count][profit];
+        }
+        
+        // Ways to get a profitable scheme without this crime.
+        int totalWays = find(pos + 1, count, profit, n, minProfit, group, profits);
+        if (count + group[pos] <= n) {
+            // Adding ways to get profitable schemes, including this crime.
+            totalWays += find(pos + 1, count + group[pos], Math.min(minProfit, profit + profits[pos]), n, minProfit, group, profits);
+        }
+        
+        return memo[pos][count][profit] = totalWays % mod;
     }
-
-    int countProfitableSchemes(int members, int currProfit, int crime) {
-      // base case: no more members to commit crimes, or no more crimes.
-      if (members == 0 || crime == totalCrimes)
-        return currProfit == minProfit ? 1 : 0;
-      
-      // base case: already solved this problem.
-      if (cache[members][currProfit][crime] != null)
-        return cache[members][currProfit][crime];
-      
-      // try skipping the current crime.
-      long count = countProfitableSchemes(members, currProfit, crime + 1);
-
-      // try committing current crime if we have enough members.
-      if (members >= group[crime]) {
-        // next profit cannot exceed the min profit needed.
-        int newProfit = Math.min(minProfit, currProfit + profit[crime]);
-        count += countProfitableSchemes(members - group[crime], newProfit, crime + 1);
-      }
-
-      // cache result for later.
-      return cache[members][currProfit][crime] = (int) (count % MOD);
+    
+    public int profitableSchemes(int n, int minProfit, int[] group, int[] profit) {
+        // Initializing all states as -1.
+        for (int i = 0; i <= group.length; i++) {
+            for(int j = 0; j <= n; j++) {
+                Arrays.fill(memo[i][j], -1);
+            }
+        }
+        
+        return find(0, 0, 0, n, minProfit, group, profit);
     }
 }
