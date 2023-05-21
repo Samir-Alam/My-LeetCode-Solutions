@@ -1,49 +1,61 @@
 class Solution {
-    public void dfs(int a[][], int i, int j) {
-		if (i < 0 || i >= a.length || j < 0 ||  j >= a[0].length || a[i][j] == 0 || a[i][j] == 2) return;
-		a[i][j] = 2;
-		dfs(a,i-1,j);dfs(a,i+1,j);dfs(a,i,j-1);dfs(a,i,j+1);
-	}
-	public int shortestBridge(int[][] a) {
-		boolean found = false;
-		Queue<int[]> q = new LinkedList<>();
-		for (int i = 0; i < a.length; i++) {
-			for (int j = 0; j < a[0].length; j++) {
-				 if (a[i][j] == 1 && !found) {
-					 found = true;
-					 dfs(a,i,j);
-				 }
-				if (found && a[i][j] == 1) q.add(new int[]{i,j});
-			}
-		}
-		int ans = 0;
-		while (!q.isEmpty()) {
-			int size = q.size();
-			for (int c = 0; c < size; c++) {
-				int b[] = q.remove();
-				int i = b[0];
-				int j = b[1];
-				if ((i > 0 && a[i-1][j] == 2) || (i < a.length-1 && a[i+1][j] == 2) || (j > 0 && a[i][j-1] == 2) || 
-					(j < a[0].length-1 && a[i][j+1] == 2)) return ans;
-				if (i > 0 && a[i-1][j] == 0) {
-					a[i-1][j] = 1;
-					q.add(new int[]{i-1,j});
-				}
-				if (i < a.length-1 && a[i+1][j] == 0) {
-					a[i+1][j] = 1;
-					q.add(new int[]{i+1,j});
-				}
-				if (j > 0 && a[i][j-1] == 0) {
-					a[i][j-1] = 1;
-					q.add(new int[]{i,j-1});
-				}
-				if (j < a[0].length-1 && a[i][j+1] == 0) {
-					a[i][j+1] = 1;
-					q.add(new int[]{i,j+1});
-				}
-			}
-			ans++;
-		}
-		return 0;
-	}
+    public int shortestBridge(int[][] grid) {
+        int n = grid.length;
+        int firstX = -1, firstY = -1;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == 1) {
+                    firstX = i;
+                    firstY = j;
+                    break;
+                }
+            }
+        }
+        List<int[]> bfsQueue = new ArrayList<>();
+        List<int[]> secondBfsQueue = new ArrayList<>();
+        bfsQueue.add(new int[]{firstX, firstY});
+        secondBfsQueue.add(new int[]{firstX, firstY});
+        grid[firstX][firstY] = 2;
+        while (!bfsQueue.isEmpty()) {
+            List<int[]> newBfs = new ArrayList<>();
+            for (int[] cell : bfsQueue) {
+                int x = cell[0];
+                int y = cell[1];
+                for (int[] next : new int[][]{{x + 1, y}, {x - 1, y}, {x, y + 1}, {x, y - 1}}) {
+                    int curX = next[0];
+                    int curY = next[1];
+                    if (curX >= 0 && curX < n && curY >= 0 && curY < n && grid[curX][curY] == 1) {
+                        newBfs.add(new int[]{curX, curY});
+                        secondBfsQueue.add(new int[]{curX, curY});
+                        grid[curX][curY] = 2;
+                    }
+                }
+            }
+            bfsQueue = newBfs;
+        }
+
+        int distance = 0;
+        while (!secondBfsQueue.isEmpty()) {
+            List<int[]> newBfs = new ArrayList<>();
+            for (int[] cell : secondBfsQueue) {
+                int x = cell[0];
+                int y = cell[1];
+                for (int[] next : new int[][]{{x + 1, y}, {x - 1, y}, {x, y + 1}, {x, y - 1}}) {
+                    int curX = next[0];
+                    int curY = next[1];
+                    if (curX >= 0 && curX < n && curY >= 0 && curY < n) {
+                        if (grid[curX][curY] == 1) {
+                            return distance;
+                        } else if (grid[curX][curY] == 0) {
+                            newBfs.add(new int[]{curX, curY});
+                            grid[curX][curY] = -1;
+                        }
+                    }
+                }
+            }
+            secondBfsQueue = newBfs;
+            distance++;
+        }
+        return distance;
+    }
 }
