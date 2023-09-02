@@ -1,23 +1,18 @@
 class Solution {
-    Integer[] memo;
-    HashSet<String> dictionarySet;
     public int minExtraChar(String s, String[] dictionary) {
         int n = s.length();
-        memo = new Integer[n];
-        dictionarySet = new HashSet<>(Arrays.asList(dictionary));
-        return dp(0, n, s);
-    }
-    private int dp(int start, int n, String s) {
-        if (start == n)
-            return 0;
-        if (memo[start] != null)
-            return memo[start];
-        int ans = dp(start + 1, n, s) + 1;
-        for (int end = start; end < n; end++) {
-            var curr = s.substring(start, end + 1);
-            if (dictionarySet.contains(curr))
-                ans = Math.min(ans, dp(end + 1, n, s));
+        var dictionarySet = new HashSet<>(Arrays.asList(dictionary));
+        var dp = new int[n + 1];
+        for (int start = n - 1; start >= 0; start--) {
+            dp[start] = dp[start + 1] + 1;
+            for (int end = start; end < n; end++) {
+                var curr = s.substring(start, end + 1);
+                if (dictionarySet.contains(curr)) {
+                    dp[start] = Math.min(dp[start], dp[end + 1]);
+                }
+            }
         }
-        return memo[start] = ans;
+
+        return dp[0];
     }
 }
