@@ -16,7 +16,7 @@ class Solution {
             if (nums[j] % 2 == 0) {
                 int tmp = nums[i];
                 nums[i++] = nums[j];
-                nums[j] = tmp;;
+                nums[j] = tmp;
             }
         return nums;
     }
