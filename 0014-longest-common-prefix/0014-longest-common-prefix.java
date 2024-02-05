@@ -8,6 +8,8 @@ class Solution {
         // }
         // return strs[0];
         
+        
+        // using sort
         Arrays.sort(strs); // lexicographically sorts
         String s1 = strs[0], s2 = strs[strs.length - 1];    //store the 2 string from opposite extemes
         int idx = 0;    // index to traverse through the strings
