@@ -8,15 +8,15 @@ class Solution {
         // }
         // return strs[0];
         
-        Arrays.sort(strs);
-        String s1 = strs[0], s2 = strs[strs.length - 1];
-        int idx = 0;
+        Arrays.sort(strs); // lexicographically sorts
+        String s1 = strs[0], s2 = strs[strs.length - 1];    //store the 2 string from opposite extemes
+        int idx = 0;    // index to traverse through the strings
         while(idx < s1.length()){
-            if(s1.charAt(idx) == s2.charAt(idx))
-                idx++;
+            if(s1.charAt(idx) == s2.charAt(idx))    // checking for the similar characters
+                idx++;  // increament the index
             else
-                break;
+                break;  // if condition not matched exit the look
         }
-        return s1.substring(0, idx);
+        return s1.substring(0, idx);    // return the substring from start to where similarity ends.
     }
 }
