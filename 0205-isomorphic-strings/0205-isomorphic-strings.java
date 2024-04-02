@@ -26,6 +26,5 @@ class Solution {
         
         // If the loop completes without returning false, strings are isomorphic
         return true;
-        
     }
 }
