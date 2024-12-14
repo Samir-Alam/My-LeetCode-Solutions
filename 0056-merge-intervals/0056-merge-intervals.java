@@ -16,12 +16,12 @@ class Solution {
             }
             ans.add(Arrays.asList(start, end));
         }
-        // int[][] res = new int[ans.size()][2];
-        // for(int i = 0; i < ans.size(); i++){
-        //     res[i][0] = ans.get(i).get(0);
-        //     res[i][1] = ans.get(i).get(1);
-        // }
-        int[][] res = ans.stream().map(a -> a.stream().mapToInt(i -> i).toArray()).toArray(int[][]::new);
+        int[][] res = new int[ans.size()][2];
+        for(int i = 0; i < ans.size(); i++){
+            res[i][0] = ans.get(i).get(0);
+            res[i][1] = ans.get(i).get(1);
+        }
+        // int[][] res = ans.stream().map(a -> a.stream().mapToInt(i -> i).toArray()).toArray(int[][]::new);
         return res;
     }
 }
